@@ -110,7 +110,7 @@ function getSections(date){
 		window.sessionStorage.currentSection = 0;
 		
 		$.mobile.loading('hide');
-		$.mobile.changePage(path("edition/show.html"));
+		$.mobile.changePage("edition.html");
 		
 	}, "json").fail(function(e){failure(e)});
 }

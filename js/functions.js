@@ -8,7 +8,7 @@ function basePath(){
 }
 
 function path(file){
-	return $.mobile.path.makePathAbsolute(file, window.location.href).slice(1);
+	return $.mobile.path.makePathAbsolute(file, window.location.href);
 }
 
 function enable(selector){

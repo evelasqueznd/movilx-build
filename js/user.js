@@ -25,7 +25,7 @@ function login(username, password, success, error){
             window.localStorage["username"] = username;
             window.localStorage["password"] = password;
             
-            $.mobile.changePage(path("edition/index.html"));
+            $.mobile.changePage("editions.html");
         }else{
             navigator.notification.alert("Usuario o password inválido.", function(){}, "Error", "Aceptar");
             //$.mobile.changePage("user/signin.html");
