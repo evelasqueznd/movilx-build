@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "com.nuestrodiario.digital"
+        versionCode="20" 
+        version   = "0.2.0">
+    
+    <name>Nuestro Diario Digital</name>
+    
+    <description>
+        Nuestro Diario Digital te permite mantenerte al dia con las noticias nacionales e internacionales desde la palma de tu mano.
+    </description>
+    
+    <author href="http://www.nuestrodiario.com" email="support@nuestrodiario.com">Diarios Modernos S.A.</author>
+    
+    <preference name="phonegap-version" value="2.5.0" />
+    <preference name="target-device" value="universal" />
+    
+    <feature name="http://api.phonegap.com/1.0/media"/>
+    <feature name="http://api.phonegap.com/1.0/network"/>
+    <feature name="http://api.phonegap.com/1.0/notification"/>
+    
+    <icon src="images/icon.png" gap:role="default" />
+    
+    <gap:splash src="images/splash.png" />
+    <gap:splash src="images/splash-160x220.png" gap:platform="android" gap:density="ldpi" />
+    <gap:splash src="images/splash-220x330.png" gap:platform="android" gap:density="mdpi" />
+    <gap:splash src="images/splash-450x650.png" gap:platform="android" gap:density="hdpi" />
+    
+</widget> 
