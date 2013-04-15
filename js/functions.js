@@ -7,7 +7,10 @@ function basePath(){
 }
 
 function path(file){
-	return basePath() + file;
+	var path = $.mobile.path.makePathAbsolute(file, window.location.href).slice(1);
+	console.log(path);
+	
+	return path;
 }
 
 function enable(selector){
