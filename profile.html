@@ -1,13 +1,18 @@
 <div id="user-profile-page" data-role="page" >
 	<div data-role="header" data-position="fixed">
-		<a href="editions.html" data-icon="back" data-iconpos="left" data-rel="back" title="Regresar">Atr&aacute;s</a>
+		<a href="editions.html" data-icon="back" data-iconpos="left" data-direction="reverse" data-rel="back" title="Regresar">Atr&aacute;s</a>
 		<h1>Mi cuenta</h1>
+		<a onclick="logout();" data-icon="delete" data-iconpos="left" title="Cerrar Sesi&oacuten">Salir</a>
 	</div>
 	<div id="content" data-role="content">
 		<form id="user-profile-form">
      		<div data-role="fieldcontain">
      			<label for="name">Tu nombre:</label>
-     			<input type="text" name="name" id="name" placeholder="Nombre y apellido" class="required" minlength="5"/>
+     			<input type="text" name="name" id="name" placeholder="Nombre" class="required" minlength="2"/>
+ 			</div>
+ 			<div data-role="fieldcontain">
+     			<label for="lastname">Tu apellido:</label>
+     			<input type="text" name="lastname" id="lastname" placeholder="Apellido" class="required" minlength="2"/>
  			</div>
      		<div data-role="fieldcontain">
      			<label for="username">Usuario:</label>
@@ -17,22 +22,13 @@
          		<label for="email">Email:</label>
          		<input type="text" name="email" id="email" placeholder="tu@ejemplo.com" class="required email" />
      		</div>
-     		<div data-role="fieldcontain">
-         		<label for="password">Contraseña:</label>
-                <input type="password" name="password" id="password" placeholder="Contraseña" class="required" minlength="5"/>
-            </div>
-     		<div data-role="fieldcontain">
-                <label for="confirm">Confirma tu contraseña:</label>
-                <input type="password" name="confirm" id="confirm" placeholder="Confirma tu contraseña" class="required" equalTo="#password" minlength="5" />
-            </div>
             <input type="submit" value="Actualizar" id="submit-button" data-icon="check"/>
         </form>
 	</div>
     <div data-role="footer" data-position="fixed" data-id="tab1">
-	    <div data-role="navbar">
+	    <div data-role="navbar" data-iconpos="left">
 	    	<ul>
-	    		<li><a href="#" data-icon="home" onclick="goToHomePage();">Inicio</a></li>
-	    		<li><a href="#" data-icon="star" onclick="goToEditionsPage();">Mis Ediciones</a></li>
+	    		<li><a href="editions.html" data-icon="home">Inicio</a></li>
 	    		<li><a href="#" data-icon="gear" class="ui-btn-active ui-state-persist">Mi Cuenta</a></li>
 			</ul>
 		</div>

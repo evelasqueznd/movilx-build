@@ -1,3 +1,7 @@
+String.prototype.toSnake = function(){
+	return this.replace(/ /, "_").toLowerCase();
+};
+
 function errorPlacement(error, element){
     element.parent().after(error);
 }
@@ -34,6 +38,12 @@ function parseDate(string){
 	var regex = /(\d{2})\/(\d{2})\/(\d{4})/;
 	var a = regex.exec(string);
 	return new Date(a[3],a[2]-1,a[1]);
+}
+
+function parseDashedDate(string){
+	var regex = /(\d{4})-(\d{2})-(\d{2})/;
+	var a = regex.exec(string);
+	return new Date(a[1],a[2]-1,a[3]);
 }
 
 function formatDate(date){
