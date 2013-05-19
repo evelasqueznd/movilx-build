@@ -12,10 +12,10 @@ function failure(e){
 }
 
 function signed_in(event){
-	if(typeof window.localStorage.session == "undefined"){
+	/*if(typeof window.localStorage.session == "undefined"){
 		event.preventDefault();
 		$.mobile.changePage("index.html", {transition: "none"});
-	}
+	}*/
 }
 
 function login(username, password, success, error){
