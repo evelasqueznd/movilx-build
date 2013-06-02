@@ -2,8 +2,8 @@
     <widget xmlns = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.nuestrodiario.digital"
-        versionCode="97" 
-        version   = "0.9.7">
+        versionCode="98" 
+        version   = "0.9.8">
     
     <name>Nuestro Diario Digital</name>
     
@@ -13,7 +13,7 @@
     
     <author href="http://www.nuestrodiario.com" email="support@nuestrodiario.com">Diarios Modernos S.A.</author>
     
-    <preference name="phonegap-version" value="2.5.0" />
+    <preference name="phonegap-version" value="2.7.0" />
     <preference name="target-device" value="universal" />
     
     <feature name="http://api.phonegap.com/1.0/media"/>
