@@ -3,7 +3,7 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.nuestrodiario.digital"
         versionCode="98" 
-        version   = "0.9.8">
+        version   = "0.9.9">
     
     <name>Nuestro Diario Digital</name>
     
