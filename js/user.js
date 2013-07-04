@@ -1,8 +1,10 @@
-var signupURL  = "http://media.nuestrodiario.com/MovilX/mobileOps2/user_registration.php";
-var signinURL  = "http://media.nuestrodiario.com/MovilX/mobileOps2/user_in.php";
-var signoutURL = "http://media.nuestrodiario.com/MovilX/mobileOps2/user_out.php";
-var profileURL = "http://media.nuestrodiario.com/MovilX/mobileOps2/get_profile.php";
-var updateURL  = "http://media.nuestrodiario.com/MovilX/mobileOps2/set_profile.php";
+var signupURL   = "http://media.nuestrodiario.com/MovilX/mobileOps2/user_registration.php";
+var signinURL   = "http://media.nuestrodiario.com/MovilX/mobileOps2/user_in.php";
+var signoutURL  = "http://media.nuestrodiario.com/MovilX/mobileOps2/user_out.php";
+var profileURL  = "http://media.nuestrodiario.com/MovilX/mobileOps2/get_profile.php";
+var updateURL   = "http://media.nuestrodiario.com/MovilX/mobileOps2/set_profile.php";
+var resetURL    = "http://media.nuestrodiario.com/MovilX/mobileOps2/passwd_recovery.php";
+var passwordURL = "http://media.nuestrodiario.com/MovilX/mobileOps2/set_password.php";
 
 function failure(e){
 	console.log(JSON.stringify(e));
@@ -12,7 +14,7 @@ function failure(e){
 }
 
 function signed_in(event){
-	if(typeof window.localStorage.session == "undefined"){
+	if(typeof window.sessionStorage.session == 'undefined"'){
 		event.preventDefault();
 		$.mobile.changePage("index.html", {transition: "none"});
 	}
@@ -28,12 +30,12 @@ function login(username, password, success, error){
         	//navigator.notification.alert("Bienvenido a NuestroDiario Digital.", function(){}, "Bienvenido", "Aceptar");
             
             window.localStorage.username = username;
-            window.localStorage.password = password;
-            window.localStorage.session = response.items[0].session_id;
+            window.sessionStorage.password = password;
+            window.sessionStorage.session = response.items[0].session_id;
             $.mobile.changePage("editions.html");
         }else{
         	console.log(JSON.stringify(response));
-        	
+
         	var error = "Ocurrió un error, intenta más tarde.";
         	if(response.error != undefined){
         		error = response.error[0].text;
@@ -51,9 +53,9 @@ function login(username, password, success, error){
 
 function autoLogin(dest){
     var username = window.localStorage.username;
-    var password = window.localStorage.password;
+    var password = window.sessionStorage.password;
     
-    if(username != undefined && password != undefined){
+    if(typeof username != 'undefined' && typeof password != 'undefined'){
     	logout();
     	$.mobile.loading('show', {text: "Iniciando sesión...", textVisible: true});
         login(username, password, function(){
@@ -62,7 +64,7 @@ function autoLogin(dest){
 			failure(e);
 		});
     }else{
-    	if(dest != undefined){
+    	if(typeof dest != 'undefined'){
     		$.mobile.changePage(dest);
     	}
     }
@@ -125,7 +127,7 @@ function signup(){
 
 function profile(){
 	var username = window.localStorage.username;
-	var session = window.localStorage.session;
+	var session = window.sessionStorage.session;
 	
 	if(username != undefined){
 		$.mobile.loading('show', {text: "Cargando...", textVisible: true});
@@ -150,7 +152,7 @@ function profile(){
 
 function updateProfile(){
 	var username = window.localStorage.username;
-	var session = window.localStorage.session;
+	var session = window.sessionStorage.session;
 	
 	if(username != undefined){
 		$.mobile.loading('show', {text: "Actualizando...", textVisible: true});
@@ -171,20 +173,84 @@ function updateProfile(){
 	}
 }
 
-function logout(){
+function logout(skipRedirect){
 	var username = window.localStorage.username;
 	$.post(signoutURL, {username: username}, function(response){
 
         if(response.items[0].closed == "OK"){
         	window.localStorage.removeItem("username");
-        	window.localStorage.removeItem("password");
-            window.localStorage.removeItem("session");
+        	window.sessionStorage.removeItem("password");
+        	window.sessionStorage.removeItem("session");
 
-            $.mobile.changePage("index.html");
+            if(typeof skipRedirect == 'undefined'){
+                $.mobile.changePage("index.html");
+            }
         }else{
-            navigator.notification.alert("Error:" + response.error[0].text, function(){}, "Error", "Aceptar");
+            if(typeof skipRedirect == 'undefined'){
+                navigator.notification.alert("Error:" + response.error[0].text, function(){}, "Error", "Aceptar");
+            }
         }
         
     },"json").fail(function(e){failure(e);});
 	
+}
+
+function passwordReset(){
+	var login = $("#login").val();
+	if(login != ''){
+	    $.mobile.loading('show', {text: "Procesando...", textVisible: true});
+	    disable("#reset-button");
+
+        $.post(resetURL, {email_or_account: login, generate: 1}, function(response){
+
+            if(response.items != undefined && response.items.email_sent == "OK"){
+                window.sessionStorage.removeItem("password");
+                window.sessionStorage.removeItem("session");
+
+                $('#login-collapse').trigger("expand");
+                navigator.notification.alert("Se ha enviado una nueva contraseña a: " + response.items.account_email, function(){}, "Atención", "Aceptar");
+            }else{
+                navigator.notification.alert(response.error[0].text, function(){}, "Error", "Aceptar");
+            }
+
+            $.mobile.loading('hide');
+            enable("#reset-button");
+
+        },"json").fail(function(e){failure(e);});
+    }
+}
+
+function passwordChange(){
+	var session = window.sessionStorage.session;
+    var password = $("#password").val();
+    var confirm = $("#confirm").val();
+
+	if(password != ''){
+	    if(password == confirm){
+	        $.mobile.loading('show', {text: "Actualizando...", textVisible: true});
+            disable("#password-change-button");
+
+            var args = {session: session, passw: password};
+            $.post(passwordURL, args, function(response){
+                console.log(JSON.stringify(response));
+
+                if(typeof response.error == 'undefined'){
+                    window.sessionStorage.password = password;
+
+                    $('#profile-collapse').trigger("expand");
+                    navigator.notification.alert("Contraseña cambiada con éxito.", function(){}, "Alerta", "Aceptar");
+                }else{
+                    navigator.notification.alert(response.error[0].text, function(){}, "Error", "Aceptar");
+                }
+
+                $.mobile.loading('hide');
+                enable("#password-change-button");
+
+            }, "json").fail(function(e){failure(e);});
+	    }else{
+	        navigator.notification.alert("Las contraseñas no coinciden.", function(){}, "Error", "Aceptar");
+	    }
+	}else{
+	    navigator.notification.alert("Tu contraseña no puede estar en blanco.", function(){}, "Error", "Aceptar");
+	}
 }
