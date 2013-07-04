@@ -21,11 +21,10 @@
     <!--<feature name="http://api.phonegap.com/1.0/notification"/>-->
     
     <icon src="images/icon.png" gap:role="default" />
-    
-    <gap:splash src="images/splash.png" />
-    <gap:splash src="images/splash_small.png" gap:platform="android" gap:density="ldpi" />
-    <gap:splash src="images/splash_medium.png" gap:platform="android" gap:density="mdpi" />
-    <gap:splash src="images/splash_large.png" gap:platform="android" gap:density="hdpi" />
-    <gap:splash src="images/splash_xlarge.png" gap:platform="android" gap:density="xhdpi" />
+	<gap:splash src="images/splash.jpg" />
+    <gap:splash src="images/splash_small.jpg" gap:platform="android" gap:density="ldpi" />
+    <gap:splash src="images/splash_medium.jpg" gap:platform="android" gap:density="mdpi" />
+    <gap:splash src="images/splash_large.jpg" gap:platform="android" gap:density="hdpi" />
+    <gap:splash src="images/splash_xlarge.jpg" gap:platform="android" gap:density="xhdpi" />        
     
 </widget> 
