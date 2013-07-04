@@ -1,2 +1,1 @@
-var movilxUserId = 0;
-var userID = 0;
+var movilxUserId=0;var userID=0;
